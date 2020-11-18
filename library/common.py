@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def numerical_gradient(f, x):
     h = 1e-4
     gradient = np.zeros_like(x)
@@ -50,3 +49,29 @@ def mean_squares_Error(x, data_x, data_y):  # 평균제곱오차(MSE, Mean Squar
     data_y_hat = [x[0] * dx + x[1] for dx in data_x]
     e = np.mean([(dyh - dy) ** 2 for dyh, dy in zip(data_y_hat, data_y)])
     return e
+
+def numerical_gradient_training(f, x, data_training):
+    h = 1e-4
+    gradient = np.zeros_like(x)
+
+    for i in range(x.size):
+        tmp = x[i]
+
+        x[i] = tmp + h
+        h1 = f(x, *data_training)
+        x[i] = tmp - h
+        h2 = f(x, *data_training)
+        gradient[i] = (h1 - h2) / (2 * h)
+
+        x[i] = tmp
+
+    return gradient
+
+def gradient_descent_linear_regression(f, x, lr=0.01, epoch = 100, data_training = None) : # 경사하강법 - 선형 회귀
+    for i in range(epoch):
+        gradient = numerical_gradient_training(f, x, data_training)
+
+        print(f'epoch={i + 1}, gradient={gradient}, x={x}')
+
+        x -= lr * gradient
+    return x
