@@ -1,22 +1,26 @@
 import numpy as np
 
-def numerical_gradient(f, x):
+def numerical_gradient(f, x): # 기울기
     h = 1e-4
     gradient = np.zeros_like(x)
 
     for i in range(x.size):
-        tmp = x[i]
+        # tmp = x[i]
+        #
+        # x[i] = tmp + h
+        # h1 = f(x) # f(x) 넣으면 벡터라서 제곱하고 둘을 더해준다.
+        #
+        # x[i] = tmp - h
+        # h2 = f(x)
+        #
+        # gradient[i] = (h1 - h2) / (2 * h)
+        # x[i] = tmp
 
-        x[i] = tmp + h
-        h1 = f(x)
-
-        x[i] = tmp - h
-        h2 = f(x)
-
+        h1 = f(x[i] + h) # 굳이 위와 같이 복잡하게 할 필요성을 못 느끼겠음.
+        h2 = f(x[i] - h)
         gradient[i] = (h1 - h2) / (2 * h)
-        x[i] = tmp
 
-        return gradient
+    return gradient
 
 
 def gradient_descent(f, x, lr=0.01, epoch=100):  # 경사하강법

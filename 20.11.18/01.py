@@ -1,3 +1,5 @@
+# 기울기 구하기
+
 import sys
 import numpy as np
 import os
@@ -16,8 +18,9 @@ try :
 except :
     print('Library Module Can Not Found')
 
-def f(x) :
-    return np.sum(x**2, axis=0)
+def f(x) : # f(x) = x^2
+    # return np.sum(x**2, axis=0)
+    return x**2
 
 gra1 = numerical_gradient(f, np.array([3., 4.]))
 gra2 = numerical_gradient(f, np.array([-1., -1.5]))
