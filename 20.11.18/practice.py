@@ -1,3 +1,3 @@
 import numpy as np
 
-print(sum(np.array(3., 4.)))
+print(np.sum(np.array([-3, -2]), axis=0)
